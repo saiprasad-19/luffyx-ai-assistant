@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUFFYX</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     AUTH OVERLAY
+═══════════════════════════════════════════ -->
+<div id="auth-overlay" class="auth-overlay">
+    <div class="auth-card">
+
+        <div class="auth-logo">☠️ LUFFYX</div>
+        <p class="auth-sub">Your Pirate AI Assistant</p>
+
+        <div class="auth-tabs">
+            <button class="auth-tab active" data-tab="login">Login</button>
+            <button class="auth-tab" data-tab="register">Sign Up</button>
+        </div>
+
+        <div class="auth-form" id="form-login">
+            <input type="text"     id="login-username" placeholder="Username" autocomplete="username">
+            <input type="password" id="login-password" placeholder="Password" autocomplete="current-password">
+            <div class="auth-error" id="login-error"></div>
+            <button class="auth-submit" id="btn-login">Login</button>
+        </div>
+
+        <div class="auth-form hidden" id="form-register">
+            <input type="text"     id="reg-username" placeholder="Choose a username" autocomplete="username">
+            <input type="password" id="reg-password" placeholder="Password (min 6 chars)" autocomplete="new-password">
+            <div class="auth-error" id="reg-error"></div>
+            <button class="auth-submit" id="btn-register">Create Account</button>
+        </div>
+
+        <div class="auth-divider"><span>or</span></div>
+        <button class="guest-btn" id="btn-guest">Continue as Guest</button>
+
+    </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     MAIN APP
+═══════════════════════════════════════════ -->
+<div class="app-layout" id="app" style="display:none;">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-header">
+            <div class="logo-section">
+                <h2>☠️ LUFFYX</h2>
+            </div>
+            <button class="sidebar-collapse-btn" id="sidebar-toggle" title="Collapse sidebar">‹</button>
+        </div>
+
+        <button class="new-chat-btn" id="new-chat-btn">+ New Chat</button>
+
+        <div class="chat-history" id="chat-history"></div>
+
+        <!-- Account footer: adapts to guest vs logged-in -->
+        <div class="sidebar-footer">
+            <div class="account-row">
+                <span class="account-icon">👤</span>
+                <span id="sidebar-username" class="account-name">Guest</span>
+            </div>
+            <button class="auth-action-btn hidden" id="btn-show-login">Login / Sign Up</button>
+            <button class="logout-btn hidden"      id="btn-logout">Logout</button>
+        </div>
+
+    </aside>
+
+    <button class="sidebar-expand-btn hidden" id="sidebar-expand" title="Open sidebar">☰</button>
+
+    <!-- Main Chat Area -->
+    <main class="main">
+
+        <h1>LUFFYX</h1>
+        <p>Your Pirate AI Assistant ☠️</p>
+
+        <div id="chat-container"></div>
+
+        <div class="chat-box">
+            <input type="file" id="file-input" accept="image/*,.pdf" hidden>
+
+            <button class="icon-btn" id="upload-btn" title="Upload image or PDF">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+            </button>
+
+            <div class="input-wrapper">
+                <input type="text" id="message-input" placeholder="Ask LUFFYX anything...">
+                <button class="mic-btn" id="mic-btn" title="Voice input">
+                    <svg id="mic-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                        <line x1="12" y1="19" x2="12" y2="23"/>
+                        <line x1="8"  y1="23" x2="16" y2="23"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="file-preview" class="file-preview hidden">
+                <span id="file-name"></span>
+                <button id="file-clear" title="Remove file">✕</button>
+            </div>
+
+            <button id="send-btn">Send</button>
+        </div>
+
+    </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+</body>
+</html>
